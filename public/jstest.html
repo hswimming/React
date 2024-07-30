@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+   <!-- script type="module" : HTML 문서가 완전히 준비되면 수행 -->
+   <!-- 스크립트 수행 후 마지막에 실행 -->
+   <script type="module">
+      console.log(typeof(btn1));
+      console.dir(btn1); // 버튼에 대한 정보
+   </script>
+</head>
+<body>
+   <h1>JavaScript 연습</h1>
+   <button id="btn1">버튼1</button>
+   <div id="here">여기</div>
+   <div id="here2">여기</div>
+
+   <script type="module" src="./go.js"></script>
+   <script type="module" src="./go2.js"></script>
+
+   <script>
+      // 비동기
+      const promise1 = new Promise(function(resolve, reject) { // 성공했을 때, 실패했을 때
+         setTimeout(() => {
+            resolve("성공~!");
+         }, 1000); // 1초
+      });
+
+      // 성공 후 수행
+      promise1.then(function(response) {
+         console.log(response);
+      });
+
+      const promise2 = new Promise(function(resolve2, reject2) { // 성공했을 때, 실패했을 때
+         setTimeout(() => {
+            reject2("실패~!");
+         }, 1000); // 1초
+      });
+
+      // 실패 후 수행
+      promise2.catch(function(response) { // 오류 처리 시 catch 사용
+         console.log(response);
+      });
+   </script>
+
+   <script>
+      // 스프레드 연산자
+      const numbersOne = [1, 2, 3];
+      const numbersTwo = [4, 5, 6];
+      const numbersThree= [numbersOne, numbersTwo] // 2차원 배열
+      const numbersCombined = [...numbersOne, ...numbersTwo]; // 2차원 배열이 되는 게 아니라 합쳐짐 (1차원 배열)
+      const numbers = [1, 2, 3, 4, 5, 6];
+      const [one, two, ...rest] = numbers;
+      
+      console.log(numbersThree);
+      console.log(numbersCombined);
+      console.log(one, two, rest);
+
+      const v10 = { brand: 'Ford', model: 'Mustang', color: 'red' };
+      const v20 = { type: 'car', year: 2021, color: 'yellow' };
+      const v30 = {"aa" : v10, "bb" : v20 }; // 객체 내에 객체가 들어감
+      const myUpdatedCars = { ...v10, ...v20 }; // 객체들이 합쳐짐 (객체 안의 객체 X)
+
+      console.log(v10)
+      console.log(v20)
+      console.log(v30)
+      console.log(myUpdatedCars)
+   </script>
+
+   <script>
+      // 구조화 문법
+      var student = {name : "황수영", score : 100};
+      var {name, score} = student; // 추출하기
+
+      console.log("학생의 이름은 " + name);
+      console.log("학생의 점수는 " + score);
+   </script>
+
+   <script>
+      // Destructing Object
+      const obj = {
+         brand: 'Ford', model: 'Mustang', type: 'car', year: 2021, color: "red",
+   	   registration: { city: "Houston", state: "Texas", country: "USA" } // Object 안에 또 Object
+      }
+
+      // original 방법
+      myCarInfo(obj); // obj 사용
+
+      function myCarInfo(car) {
+         // car 변수 지금 정의
+         const message = 'My '
+                       + car.type + ' is a ' + car.color + ' ' + car.brand + ' ' + car.model + '.';
+         document.getElementById("here").innerHTML = message;
+      }
+
+      myCarInfo2(obj);
+      
+      function myCarInfo2({ model: mm, brand, registration: { state, country, city: cc } }) {  // 바로 추출, 모델명 변경
+         let message = "My " + mm + " is registered in " + state + ".";
+         message += "country = " + country + "<br>";
+         message += "city = " + cc + "<br>";
+         message += "brand = " + brand;
+
+         document.getElementById("here2").innerHTML = message;
+         console.log(message);
+      }
+   </script>
+
+   <script>
+      // Destructing Arrays(배열을 구조화) : 함수가 배열을 반환할 때 유용
+      const arr = ['BMW520', '포터2', 'Discovery'];
+      // old way
+      const car = arr[0];
+      const truck = arr[1];
+      const suv = arr[2];
+      //
+      const [car2, truck2, suv2] = arr;
+      console.log(car2, truck2, suv2);
+
+      const [add, subtract, multiply, divide] = calculate(10, 3); // 여러개의 리턴 값이 변수로 들어감
+      console.log(add, subtract, multiply, divide);
+
+      function calculate(a, b) {
+         const add = a + b;
+         const subtract = a - b;
+         const multiply = a * b; const divide = a / b;
+         return [add, subtract, multiply, divide]; // 배열에 여러 값을 넣어서 return
+      }
+   </script>
+
+   <script>
+      // Array 메서드 (map) : 각 요소마다 looping, 새로운 배열return
+      // map은 변형 data => 변형하여 return
+      const myArray = ['apple', 'banana', 'orange'];
+      const myList = myArray.map((item) => "<p>" + item + "</p>"); // (item) Arg 1개이면 () 생략 가능 => item
+      console.log(myList);
+
+      // myList.join() => 문자로 변경
+      // replaceAll(", ", "") => join 실행하면 콤마 생성, 다른 문자로 변경
+      document.getElementById("here").innerHTML = myList.join().replaceAll(",", "<hr/>"); // 태그도 가능
+   </script>
+
+   <script>
+      // this 연습
+      class Header {
+         constructor() { this.color = "Red"; }
+
+         changeColor = function (e) {
+            const hereObj = document.getElementById("here");
+
+            if (this == window)
+               hereObj.style.backgroundColor = "orange";
+
+            else if (this.nodeName == "BUTTON")
+               hereObj.style.backgroundColor = "lightgreen";
+
+            hereObj.innerHTML += this; console.dir(this);
+            e.stopPropagation(); // click 이벤트 전파 막기
+         }
+      }
+
+      const myheader = new Header();
+
+      window.addEventListener("click", myheader.changeColor); // callback
+      document.getElementById("btn1").addEventListener("click", myheader.changeColor); // callback
+   </script>
+
+   <script>
+      // class : Object를 만드는 틀이다. (속성과 기능을 정의)
+      // 생성자 안에서 속성 초기화
+      // 생성자 (new 할 때 실행)
+      class Shape {
+         constructor(name) {
+            this.model = name; // 생성 시 마다 메서드 추가
+            this.draw = function () {
+               console.log(this.model + " ~~ 그리다...");
+            };
+
+            // 실행 불가능, 생성자 안에서 함수 사용 시 this 작성
+            /*
+            draw2 = function () {
+               console.log(this.model + " ~~ 그리다 ~~");
+            };
+            */
+         }
+
+         // 생성자 밖에서 속성 초기화
+         // 프로토타입 메서드
+         display() {
+            return "나는 " + this.model;
+         }
+      } // class END
+
+      const myshape = new Shape("도형");
+      console.log(myshape);
+      myshape.draw();
+      // myshape.draw2();
+      console.log(myshape.display());
+
+      // 상속
+      class Rectangle extends Shape {
+            constructor(name, width, height) {
+               super(name);
+               this.width = width;
+               this.height = height;
+            }
+            show() {
+               return this.display() + ", width = " + this.width + ", height = " + this.height;
+            }
+         }
+         const myshape2 = new Rectangle("사각형 (자식이 부모를 통해 초기화)", 10, 20);
+         console.log(myshape2.show());
+   </script>
+
+   <script>
+      // 익명 함수, 즉시 실행 함수, 화살표 함수
+      (function() {
+         console.log("익명 함수...즉시 실행 함수");
+      }) ();
+
+      var f1 = function() {
+         console.log("익명 함수...liter 할당");
+      };
+      
+      var f2 = () => {
+         console.log("익명 함수...liter 할당...화살표 함수");
+      };
+
+      function f3() {
+         console.log("선언적 함수");
+      }
+
+      // 변수는 이름 변경 가능
+      f1(); f2(); f3();
+   </script>
+
+   <script>
+      const myWork1 = function() {
+         console.log("react 시작");
+      };
+
+      const myWork2 = () => {
+         console.log("react 시작");
+      };
+
+      // 실행 결과 다름, callback 함수 사용 시 주의
+      // setInterval(myWork1, 1000);
+      setInterval(myWork1(), 1000);
+
+      // 매개변수가 함수
+      function f2(count, callback) {
+         for(let index = 0; index < count; index++) {
+            callback(index + 1); // 함수 호출
+         }
+      }
+
+      var myFunction = function(param) {
+         console.log(param);
+      }
+
+      f2(3, myFunction); // 함수 전달
+   </script>
+
+   <script>
+      // 호이스팅 : var, function 맨 위로 올림 => 선언문이 밑에 있어도 사용 가능
+      console.log(v1);
+
+      f1();
+      var v1 = 100;
+
+      function f1() {}
+   </script>
+
+   <script>
+      function call() {
+         var a = 10; // 지역변수, 함수내에 있으면 외부 접근 불가능
+         let b = 20; // block {} 내부에서만 유효
+         const c = 30;
+      }
+
+      // c = 40; // 상수는 수정 불가능
+
+      // console.log(a + b + c);
+   </script>
+</body>
+</html>

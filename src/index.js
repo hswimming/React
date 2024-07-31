@@ -5,9 +5,12 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 // import MyApp1 from './day1/MyApp1';
 // import MyApp2 from './day1/MyApp2';
-import EnvTest from 'day1/EnvTest'; // jsonconfig.json 설정 파일에서 절대 경로를 설정함 (src를 기본 경로로 잡음)
-import MyApp2 from 'day1/MyApp2';
-import MyApp1 from 'day1/MyApp1';
+// import EnvTest from 'day1/EnvTest'; // jsonconfig.json 설정 파일에서 절대 경로를 설정함 (src를 기본 경로로 잡음)
+// import MyApp2 from 'day1/MyApp2';
+// import MyApp1 from 'day1/MyApp1';
+// import MyApp3 from 'day2/MyApp3';
+// import MyApp4 from 'day2/MyApp4';
+import MyApp5 from 'day2/MyApp5';
 
 // index.html 내부에 있는 <div id="root"></div> 부분에 들어간다.
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -33,8 +36,12 @@ root.render(
 
     <h1>React JS 시작하기</h1>
     {/* <MyApp1/> */}
-    <MyApp2/>
+    {/* <MyApp2/> */}
     {/* <EnvTest/> */}
+
+    {/* <MyApp3/> */}
+    {/* <MyApp4/> */}
+    <MyApp5/>
   </div>
 );
 

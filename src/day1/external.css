@@ -1,7 +1,7 @@
 .myStyle {
-   color: red;
-   background-color: aqua;
-   border: 1px solid gray;
+   color: darkcyan;
+   background-color: lightskyblue;
+   border: 1px solid lightgray;
    width: 100%;
    text-align: center;
 }

@@ -1,6 +1,7 @@
+import DisplayStudentList from 'day2/DisplayStudentList';
+import InputStudent from 'day2/InputStudent';
 import { useState } from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
-import DisplayStudentList from './DisplayStudentList';
+import { Button } from 'react-bootstrap';
 
 // class Component에서 상태관리를 위해 : state, setState()
 // function Component에서 상태관리를 위해 : useState()
@@ -9,7 +10,7 @@ const initStudent = {stdId : 1, stdName : "황수영", major : "실내건축"};
 
 function StateTest4(props) {
    const [student, setStudent] = useState(initStudent); // 1건의 객체
-   const [studentList, setStudentList] = useState([initStudent, initStudent, initStudent]); // 여러건의 객체
+   const [studentList, setStudentList] = useState([initStudent]); // 여러건의 객체
 
    const changeHandler = (event) => {
       // event => 태그 안에 있는 name 값
@@ -24,6 +25,7 @@ function StateTest4(props) {
 
    return (
       <div>
+         {/*
          <h2>학생 정보 입력</h2>
          <InputGroup className="mb-3">
          <InputGroup.Text id="basic-addon1">학생 번호</InputGroup.Text>
@@ -37,6 +39,10 @@ function StateTest4(props) {
          <InputGroup.Text id="basic-addon1">전공</InputGroup.Text>
          <Form.Control onChange={changeHandler} defaultValue={student.major} name='major'/>
          </InputGroup>
+         */}
+
+         {/* 부모가 자식에게 속성 추출해서 넘겨줌 (자식 컴포넌트에서는 같은 이름으로 받아야 함) */}
+         <InputStudent student={student} changeHandler={changeHandler}/>
          <Button onClick={addHandler}>추가</Button>
 
          {/*
@@ -52,7 +58,7 @@ function StateTest4(props) {
          </Card>
          */}
 
-         {/* 부모가 자식에게 속성 추출해서 이름으로 넘겨줌 */}
+         {/* 부모가 자식에게 속성 추출해서 넘겨줌 (자식 컴포넌트에서는 같은 이름으로 받아야 함) */}
          <DisplayStudentList studentList={studentList}/>
       </div>
    );

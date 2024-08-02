@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { TodoContext } from './todoContext';
 
 // 새로운 할 일 아이템 생성
-function TodoEditorComponent({addTodo}) {
+function TodoEditorComponent() {
+   const { addTodo } = useContext(TodoContext); // 공유 공간에서 필요한 값만 빼오기
    const [content, setContent] = useState("");
 
    // focus 이동을 위해 선언, useRef가 DOM 처리를 위해 사용

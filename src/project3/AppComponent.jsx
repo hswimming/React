@@ -1,8 +1,9 @@
-import HeaderComponent from "project2/HeaderComponent";
-import TodoEditorComponent from "project2/TodoEditorComponent";
-import TodoListComponent from "project2/TodoListComponent";
-import "project2/project2.css";
-import { useEffect, useRef, useState } from "react";
+import HeaderComponent from "project3/HeaderComponent";
+import TodoEditorComponent from "project3/TodoEditorComponent";
+import TodoListComponent from "project3/TodoListComponent";
+import "project3/project2.css";
+import React, { useEffect, useRef, useState } from "react";
+import { TodoContext } from "project3/todoContext";
 
 // default Data
 const initTodo = [
@@ -19,6 +20,9 @@ const initTodo = [
       createDate : new Date().getTime()
    }
 ];
+
+// 전역 공간 생성
+// export const TodoContext = React.createContext();
 
 function AppComponent(props) {
    // 배열 [{}, {}]
@@ -109,9 +113,13 @@ function AppComponent(props) {
 
    return (
       <div className="App">
-         <HeaderComponent/>
-         <TodoEditorComponent addTodo={addTodo}/>
-         <TodoListComponent todo={todo} updateTodo={updateTodo} deleteTodo={deleteTodo}/>
+         {/* 공유 공간에 저장, 필요할때 가져다 쓰는 것, 주는 게 아님 */}
+         {/* 오브젝트 형태, 키 : 값, 이름 같으면 생략해서 작성 */}
+         <TodoContext.Provider value={{addTodo, todo, updateTodo, deleteTodo}}>
+            <HeaderComponent/>
+            <TodoEditorComponent/>
+            <TodoListComponent/>
+         </TodoContext.Provider>
       </div>
    );
 }

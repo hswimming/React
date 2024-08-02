@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import TodoItemComponent from './TodoItemComponent';
+import React, { useContext, useState } from 'react';
+import TodoItemComponent from 'project3/TodoItemComponent';
+import { TodoContext } from './todoContext';
 
 // 검색에 따라 필터링된 할 일 아이템 렌더링
-function TodoListComponent({todo, updateTodo, deleteTodo}) {
+function TodoListComponent() {
+   const { todo } = useContext(TodoContext); // 공유 공간에서 필요한 값만 빼오기
    const [search, setSearch] = useState("");
 
    const changeHandler = (event) => {
@@ -43,8 +45,6 @@ function TodoListComponent({todo, updateTodo, deleteTodo}) {
                   key={item.id}
                   id={item.id}
                   data={item}
-                  updateTodo={updateTodo}
-                  deleteTodo={deleteTodo}
                />
             ))}
          </div>

@@ -3,8 +3,15 @@ import ReactDOM from 'react-dom/client';
 // import App from './App'; // 중괄호 {} 없으면 default
 import reportWebVitals from './reportWebVitals';
 // import EnvTest from 'day1/EnvTest'; // jsonconfig.json 설정 파일에서 절대 경로를 설정함 (src를 기본 경로로 잡음)
+import SmartHome from 'day4/SmartHome';
+import NotFound from 'day5/NotFound';
+import WebBoardHome from 'day5/WebBoardHome';
+import AppComponent from 'project3/AppComponent';
 import App from 'project4/App';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from 'login/Home';
+import Login from 'login/Login';
+import SignUp from 'login/SignUp';
 
 // index.html 내부에 있는 <div id="root"></div> 부분에 들어간다.
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -26,11 +33,18 @@ root.render(
     {/* <h1>React JS 시작하기</h1> */}
     {/* <AppComponent/> */}
 
+    {/* 주소에 따른 Element로 교체된다 */}
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<SmartHome/>}></Route> */}
-        {/* <Route path="/project3" element={<AppComponent/>}></Route> */}
-        <Route path="/*" element={<App/>}/>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/*" element={<NotFound/>}/>
+        
+        <Route path="/project3" element={<AppComponent/>}></Route>
+        <Route path="/project4/*" element={<App/>}/>
+        <Route path="/webboard/*" element={<WebBoardHome/>}></Route>
+
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/signup" element={<SignUp/>}></Route>
       </Routes>
     </BrowserRouter>
   </div>
